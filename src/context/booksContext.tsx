@@ -1,17 +1,28 @@
 "use client";
 
-import { Children, createContext, useState } from "react";
+import { TBook } from "@/app/type/books.type";
+import { Children, createContext, SetStateAction, useState } from "react";
 
-// import { createContext } from "vm";
+interface IBookContext {
+  readBook: TBook[];
+  setRedBook: React.Dispatch<SetStateAction<TBook[]>>;
+  wishlist: TBook[];
+  setWishlist: React.Dispatch<SetStateAction<TBook[]>>;
+}
 import React from "react";
-export const BooksContext = createContext({});
+export const BooksContext = createContext<IBookContext >({
+   readBook:[],
+    setRedBook:()=>{},
+    wishlist:[],
+    setWishlist:()=>{}
+});
 export default function BooksProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [readBook, setRedBook] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [readBook, setRedBook] = useState<TBook[]>([]);
+  const [wishlist, setWishlist] = useState<TBook[]>([]);
   const allContextValue = {
     readBook,
     setRedBook,

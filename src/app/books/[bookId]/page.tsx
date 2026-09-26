@@ -4,14 +4,22 @@ import { TBook } from "@/app/type/books.type";
 import DataFetch from "@/lib";
 import Image from "next/image";
 
+interface BookPageParams {
+  bookId: string;
+}
+
+interface BookPageProps {
+  params: Promise<BookPageParams>;
+}
+
 export default async function BookIdPage({
   params,
-}: {
-  params: Promise<{ bookId: string }>;
-}) {
-  const book = await DataFetch();
-  const { bookId } = await params;
-  const books = book.find((book:TBook) => book.bookId === Number(bookId));
+}: BookPageProps) {
+  const book: TBook[] = await DataFetch();
+  const { bookId }: BookPageParams = await params;
+  const books: TBook | undefined = book.find(
+    (book: TBook) => book.bookId === Number(bookId)
+  );
 
   if (!books) {
     return (
@@ -80,7 +88,7 @@ export default async function BookIdPage({
 
                 {/* Tags */}
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {books?.tags.map((tag) => (
+                  {books?.tags.map((tag:string) => (
                     <span
                       key={tag}
                       className="rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600"
