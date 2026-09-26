@@ -1,5 +1,5 @@
 import { TBook } from "@/app/type/books.type";
-import BookCart from "../components/shared/bookCart";
+import BookCart from "../shared/bookCart";
 
 const getData = async (): Promise<TBook[]> => {
   const res = await fetch("http://localhost:3000/booksData.json");
