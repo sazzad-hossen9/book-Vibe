@@ -1,27 +1,17 @@
 import ReadButton from "@/app/components/bookDetails/readbtn";
-import ReadBtn from "@/app/components/bookDetails/readbtn";
 import WishlistButton from "@/app/components/bookDetails/wishlistbtn";
 import { TBook } from "@/app/type/books.type";
+import DataFetch from "@/lib";
 import Image from "next/image";
-
-const getData = async (): Promise<TBook[]> => {
-  const res = await fetch("http://localhost:3000/booksData.json");
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch books");
-  }
-
-  return res.json();
-};
 
 export default async function BookIdPage({
   params,
 }: {
   params: Promise<{ bookId: string }>;
 }) {
-  const book = await getData();
+  const book = await DataFetch();
   const { bookId } = await params;
-  const books = book.find((book) => book.bookId === Number(bookId));
+  const books = book.find((book:TBook) => book.bookId === Number(bookId));
 
   if (!books) {
     return (
@@ -127,7 +117,6 @@ export default async function BookIdPage({
                 {/* Buttons */}
                 <div className="mt-8 flex flex-wrap gap-4">
                   <ReadButton books={books} />
-
                   <WishlistButton books={books} />
                 </div>
               </div>

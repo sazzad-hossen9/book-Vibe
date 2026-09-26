@@ -1,7 +1,6 @@
 import Image from "next/image";
 import logo from "@/assets/book.ico";
 import Link from "next/link";
-import ListedBooks from "../../listedbook/page";
 export default function NavBer() {
   const navLink = (
     <>
